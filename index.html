@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Team Vignaraja</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- Firebase v8 compat (works well for simple browser usage) -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+</head>
+<body>
+  <!-- Splash -->
+  <div id="splashScreen" class="splash-screen">
+    <img src="https://i.ibb.co/3ycLVM4g/logo-removebg-preview.png" alt="logo" class="splash-logo">
+  </div>
+
+  <!-- Login page (kept same layout) -->
+  <div id="loginPage" class="page hidden">
+    <h1>Welcome to Team Vignaraja</h1>
+    <img src="https://i.ibb.co/3ycLVM4g/logo-removebg-preview.png" class="big-logo" alt="Logo">
+
+    <div class="login-box">
+      <input type="text" id="nameInput" placeholder="Enter Your Name" />
+      <div class="password-box">
+        <input type="password" id="passwordInput" placeholder="Enter Password" />
+        <button type="button" onclick="togglePassword()">👁️</button>
+      </div>
+
+      <input type="text" id="phoneInput" placeholder="Enter 10-digit Mobile Number (First time only)" />
+      <label class="upload-label">Upload Profile Image (First time only)</label>
+      <input type="file" id="profileImgInput" accept="image/*" />
+
+      <button class="btn green" id="memberLoginBtn">Login / Register</button>
+
+      <h3>Admin Login</h3>
+      <input type="text" id="adminUser" placeholder="Admin Username" />
+      <input type="password" id="adminPass" placeholder="Admin Password" />
+      <button class="btn red" id="adminLoginBtn">Admin Login</button>
+
+      <p id="loginMsg" class="msg"></p>
+    </div>
+  </div>
+
+  <!-- App (visible only after login) -->
+  <div id="app" class="page hidden">
+    <header class="app-header">
+      <div class="left-header">
+        <button id="menuBtn" class="menu-btn" title="Menu">☰</button>
+        <img src="https://i.ibb.co/3ycLVM4g/logo-removebg-preview.png" class="small-logo" alt="logo">
+        <h2 id="vaultTitle">Vignaraja's Pocket</h2>
+      </div>
+      <div class="right-header">
+        <div id="timer" class="timer"></div>
+        <img id="profileAvatar" class="avatar hidden" alt="avatar">
+      </div>
+    </header>
+
+    <marquee class="marquee">TEAM VIGNARAJA</marquee>
+
+    <section class="vault-section">
+      <div class="vault-card">
+        <div class="vault-head">Total Vault</div>
+        <div class="vault-amount">₹ <span id="totalVault">0</span></div>
+        <div class="vault-sub">Monthly contribution: ₹250</div>
+      </div>
+    </section>
+
+    <section class="members-section">
+      <h3>Members</h3>
+      <ul id="membersList" class="members-list"></ul>
+    </section>
+
+    <section class="address">
+      <p><b style="color:red;">We Team Vignaraja are owed to celebrate our festival with much gratitude and self confidence as no one will be affected through our acts Jai Ganesha -- TEAM VIGNARAJA</b></p>
+      <p><b style="color:red;">Bangarupalyam, Chittoor Dist, Andhra Pradesh 517416</b></p>
+    </section>
+  </div>
+
+  <!-- Side menu -->
+  <aside id="sideMenu" class="side-menu hidden" aria-hidden="true">
+    <button onclick="goHome()">🏠 Home</button>
+    <button onclick="viewDates()">📅 Important Dates</button>
+    <button onclick="openGalleryUpload()">🖼 Upload Ganesha</button>
+    <button onclick="openGallery()">📷 View Gallery</button>
+    <button onclick="deleteMyAccount()">🗑 Delete Account</button>
+    <button onclick="logout()">🚪 Logout</button>
+
+    <div id="adminPanel" class="admin-panel hidden">
+      <hr />
+      <h4>Admin Tools</h4>
+      <label for="vaultOverride">Set Vault amount</label>
+      <input id="vaultOverride" type="number" placeholder="e.g. 1250" />
+      <button onclick="adminSetVault()" class="btn green">Update Vault</button>
+
+      <div class="admin-actions">
+        <button onclick="adminMarkAllPaid()" class="btn">Mark All Paid</button>
+        <button onclick="adminMarkAllPending()" class="btn">Mark All Pending</button>
+      </div>
+    </div>
+
+    <hr />
+    <div>
+      <h4>Ganesha Gallery</h4>
+      <div id="ganeshaGallery" class="gallery-grid"></div>
+    </div>
+  </aside>
+
+  <script src="script.js"></script>
+</body>
+</html>
